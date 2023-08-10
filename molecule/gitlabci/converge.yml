@@ -12,5 +12,9 @@
     - name: "Include labocbz.install_php"
       tags:
         - "labocbz.install_php"
+      vars:
+        install_php_version: "{{ inv_install_php_version }}"
+        install_php_version_is_default: "{{ inv_install_php_version_is_default }}"
+        install_php_extensions: "{{ inv_install_php_extensions }}"
       ansible.builtin.include_role:
         name: "labocbz.install_php"

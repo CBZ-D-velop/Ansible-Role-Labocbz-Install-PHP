@@ -5,3 +5,22 @@
   hosts: "all"
   gather_facts: false
   tasks:
+
+    - name: "Verify PHP -v , with default call"
+      when: inv_install_php_version_is_default | default(false)
+      register: php_version_output
+      changed_when: php_version_output.rc != 0
+      failed_when: "'PHP {{ inv_install_php_version }}' not in php_version_output.stdout"
+      ansible.builtin.command: "php -v"
+
+    - name: "Verify PHP -v , with custom binaries for PHP {{ inv_install_php_version }}"
+      loop:
+        - "php-{{ inv_install_php_version }}"
+        - "/usr/bin/php{{ inv_install_php_version }}"
+        - "/bin/php-{{ inv_install_php_version }}"
+      loop_control:
+        loop_var: php_call
+      register: php_version_output
+      changed_when: php_version_output.rc != 0
+      failed_when: "'PHP {{ inv_install_php_version }}' not in php_version_output.stdout"
+      ansible.builtin.command: "{{ php_call }} -v"

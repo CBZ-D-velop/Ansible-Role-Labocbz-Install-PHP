@@ -1,1 +1,55 @@
 ---
+- name: "Install packages"
+  ansible.builtin.package:
+    update_cache: true
+    name:
+      - "software-properties-common"
+      - "ca-certificates"
+      - "lsb-release"
+      - "apt-transport-https"
+
+- name: "Install PHP {{ install_php_version }}"
+  block:
+    - name: "Get lsb_release"
+      register: lsb_result
+      changed_when: lsb_result.rc != 0
+      ansible.builtin.command: "lsb_release -sc"
+
+    - name: "Add SURY GPG apt Key"
+      ansible.builtin.apt_key:
+        url: "https://packages.sury.org/php/apt.gpg"
+
+    - name: "Add SURY Repository"
+      ansible.builtin.apt_repository:
+        repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
+
+    - name: "Update apt and install PHP {{ install_php_version }}"
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - "php{{ install_php_version }}"
+
+    - name: "Update apt and install all PHP {{ install_php_version }} extensions selected"
+      ansible.builtin.apt:
+        name: "{{ install_php_extensions }}"
+
+    - name: "Verify PHP -v, with alternative / default"
+      register: php_version_output
+      changed_when: php_version_output.rc != 0
+      ansible.builtin.command: "php -v"
+
+    - name: "Set PHP {{ install_php_version }} as default version"
+      when: (install_php_version_is_default | default(false)) and "PHP " ~ install_php_version not in php_version_output.stdout
+      community.general.alternatives:
+        name: "php"
+        path: "/usr/bin/php{{ install_php_version }}"
+        priority: 100
+
+    - name: "Add a php-{{ install_php_version }} in /usr/bin and /bin for PHP {{ install_php_version }}"
+      ansible.builtin.file:
+        src: "/usr/bin/php{{ install_php_version }}"
+        dest: "/bin/php-{{ install_php_version }}"
+        state: link
+        owner: "root"
+        group: "root"
+        mode: "0711"

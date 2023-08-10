@@ -139,6 +139,11 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-08-10: First Init
 
 * First init of this role with the bootstrap_role playbook by Lord Robin Crombez
+* Role install PHP with the package manager
+* PHP-\<version\> is installed
+* Role can handle multiple version, so the possibility to set one as default is available
+* Role create links to binary to use multiple version, as php-8.3 -v for php 8.3
+* Role handle the installation of multiple extension, defaults are basic WordPress / Symfony requirements
 
 ## Authors
 
@@ -148,3 +153,5 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * [Ansible role documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
 * [Ansible Molecule documentation](https://molecule.readthedocs.io/)
+* [How To Install PHP](https://tecadmin.net/how-to-install-php-on-debian-11/)
+* [PHP extensions that WordPress needs to run properly](https://zeropointdevelopment.com/required-php-extensions-for-wordpress-wpquickies/)
