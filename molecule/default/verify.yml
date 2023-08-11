@@ -24,3 +24,10 @@
       changed_when: php_version_output.rc != 0
       failed_when: "'PHP {{ inv_install_php_version }}' not in php_version_output.stdout"
       ansible.builtin.command: "{{ php_call }} -v"
+
+    - name: "Get PHP FPM service current state"
+      when: inv_install_php_install_fpm | default(inv_install_php_install_fpm)
+      register: fpm_service_status
+      failed_when: not fpm_service_status.status.ActiveState == 'active'
+      ansible.builtin.systemd:
+        name: "php{{ inv_install_php_version }}-fpm"

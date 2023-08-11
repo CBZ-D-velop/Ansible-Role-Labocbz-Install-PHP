@@ -1,6 +1,30 @@
 ---
 install_php_version: "8.2"
 install_php_version_is_default: true
+install_php_install_fpm: true
+install_php_import_cli_conf: true
+install_php_import_apache_conf: true
+install_php_import_cgi_conf: true
+install_php_import_fpm_conf: true
+
+install_php_max_input_time: 60
+install_php_output_buffering: 4096
+install_php_cgi_fix_pathinfo: 1
+install_php_expose_php: "Off"
+install_php_max_execution_time: 30
+install_php_memory_limit: "512M"
+install_php_post_max_size: "512M"
+install_php_file_uploads: "On"
+install_php_upload_max_filesize: "1024M"
+install_php_max_file_uploads: 20
+install_php_allow_url_fopen: "Off"
+install_php_allow_url_include: "Off"
+install_php_smtp: "localhost"
+install_php_smtp_port: 25
+install_php_session_save_handler: "files" # redis
+install_php_session_save_path: "/var/lib/php/sessions" #tcp://127.0.0.1:6379?auth=<PASSWORD>
+install_php_session_auto_start: 0
+install_php_session_use_strict_mode: 0
 
 install_php_extensions:
   - "php{{ install_php_version }}-zip"
@@ -27,3 +51,65 @@ install_php_extensions:
   - "php{{ install_php_version }}-ssh2"
   - "php{{ install_php_version }}-ftp"
   - "php{{ install_php_version }}-sockets"
+
+install_php_disable_functions:
+  - "phpinfo"
+  - "system"
+  - "exec"
+  - "posix_uname"
+  - "eval"
+  - "pcntl_wexitstatus"
+  - "posix_getpwuid"
+  - "xmlrpc_entity_decode"
+  - "pcntl_wifstopped"
+  - "pcntl_wifexited"
+  - "pcntl_wifsignaled"
+  - "phpAds_XmlRpc"
+  - "pcntl_strerror"
+  - "ftp_exec"
+  - "pcntl_wtermsig"
+  - "mysql_pconnect"
+  - "proc_nice"
+  - "pcntl_sigtimedwait"
+  - "posix_kill"
+  - "pcntl_sigprocmask"
+  - "fput"
+  - "system"
+  - "phpAds_remoteInfo"
+  - "ftp_login"
+  - "inject_code"
+  - "posix_mkfifo"
+  - "highlight_file"
+  - "escapeshellcmd"
+  - "show_source"
+  - "pcntl_wifcontinued"
+  - "fp"
+  - "pcntl_alarm"
+  - "pcntl_wait"
+  - "ini_alter"
+  - "posix_setpgid"
+  - "parse_ini_file"
+  - "ftp_raw"
+  - "pcntl_waitpid"
+  - "pcntl_getpriority"
+  - "ftp_connect"
+  - "pcntl_signal_dispatch"
+  - "pcntl_wstopsig"
+  - "ini_restore"
+  - "ftp_put"
+  - "passthru"
+  - "proc_terminate"
+  - "posix_setsid"
+  - "pcntl_signal"
+  - "pcntl_setpriority"
+  - "phpAds_xmlrpcEncode"
+  - "pcntl_exec"
+  - "ftp_nb_fput"
+  - "ftp_get"
+  - "phpAds_xmlrpcDecode"
+  - "pcntl_sigwaitinfo"
+  - "shell_exec"
+  - "pcntl_get_last_error"
+  - "ftp_rawlist"
+  - "pcntl_fork"
+  - "posix_setuid"

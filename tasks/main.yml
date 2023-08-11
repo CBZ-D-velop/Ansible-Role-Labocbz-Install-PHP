@@ -9,6 +9,7 @@
       - "apt-transport-https"
 
 - name: "Install PHP {{ install_php_version }}"
+  notify: "Enable and start php-fpm"
   block:
     - name: "Get lsb_release"
       register: lsb_result
@@ -53,3 +54,53 @@
         owner: "root"
         group: "root"
         mode: "0711"
+
+    - name: "Update apt and install PHP {{ install_php_version }} FPM"
+      when: install_php_install_fpm | default(false)
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - "php{{ install_php_version }}-fpm"
+
+- name: "Configure PHP {{ install_php_version }}"
+  block:
+    - name: "Import php.ini for CLI"
+      when: install_php_import_cli_conf | default(false)
+      ansible.builtin.template:
+        src: "templates/php.ini.j2"
+        dest: "/etc/php/{{ install_php_version }}/cli/php.ini"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        lstrip_blocks: yes
+
+    - name: "Import php.ini for Apache2"
+      when: install_php_import_apache_conf | default(false)
+      ansible.builtin.template:
+        src: "templates/php.ini.j2"
+        dest: "/etc/php/{{ install_php_version }}/apache2/php.ini"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        lstrip_blocks: yes
+
+    - name: "Import php.ini for Apache2"
+      when: install_php_import_cgi_conf | default(false)
+      ansible.builtin.template:
+        src: "templates/php.ini.j2"
+        dest: "/etc/php/{{ install_php_version }}/cgi/php.ini"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        lstrip_blocks: yes
+
+    - name: "Import php.ini for FPM"
+      when: (install_php_import_fpm_conf | default(false)) and (install_php_install_fpm | default(false))
+      notify: "Restart php-fpm"
+      ansible.builtin.template:
+        src: "templates/php.ini.j2"
+        dest: "/etc/php/{{ install_php_version }}/fpm/php.ini"
+        mode: "0755"
+        owner: "root"
+        group: "root"
+        lstrip_blocks: yes
