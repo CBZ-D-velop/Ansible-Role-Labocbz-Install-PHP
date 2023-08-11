@@ -248,14 +248,15 @@ inv_install_php_upload_max_filesize: "4096M"
 inv_install_php_max_file_uploads: 20
 inv_install_php_allow_url_fopen: "Off"
 inv_install_php_allow_url_include: "Off"
-#inv_install_php_session_save_handler: "redis"
-#inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
 
 inv_install_php_session_save_handler: "redis"
-inv_install_php_session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret"
+inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
+
+#inv_install_php_session_save_handler: "redis"
+#inv_install_php_session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret"
 
 #inv_install_php_session_save_handler: "rediscluster"
-#inv_install_php_session_save_path: "seed[]=tls://ip1:port&seed[]=tls://ip2:port&stream[verify_peer]=0&stream[local_cert]=file:///path/to/cert.pem"
+#inv_install_php_session_s
 
 inv_install_php_session_auto_start: 0
 inv_install_php_session_use_strict_mode: 0
