@@ -16,7 +16,7 @@ inv_redis_ports:
   - 6380
   - 6381
 
-inv_redis_ssl: true
+inv_redis_ssl: false
 inv_redis_ssl_domain: "my.redis-cluster.domain.tld"
 inv_redis_ssl_path: "/etc/redis/ssl"
 inv_redis_ssl_key: "{{ inv_redis_ssl_path }}/{{ inv_redis_ssl_domain }}/{{ inv_redis_ssl_domain }}.pem.key"
