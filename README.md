@@ -105,6 +105,9 @@ Some vars a required to run this role:
 install_php_version: "8.2"
 install_php_version_is_default: true
 install_php_install_fpm: true
+install_php_remove_all_fpm_pools: true
+install_php_fpm_pools_path: "/etc/php/{{ install_php_version }}/fpm/pool.d"
+
 install_php_import_cli_conf: true
 install_php_import_apache_conf: true
 install_php_import_cgi_conf: true
@@ -231,6 +234,8 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 inv_install_php_version: "8.2"
 inv_install_php_version_is_default: true
 inv_install_php_install_fpm: true
+install_php_remove_all_fpm_pools: true
+inv_install_php_fpm_pools_path: "/etc/php/{{ inv_install_php_version }}/fpm/pool.d"
 inv_install_php_import_cli_conf: true
 inv_install_php_import_apache_conf: true
 inv_install_php_import_cgi_conf: true
@@ -391,6 +396,8 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_php_session_auto_start: "{{ inv_install_php_session_auto_start }}"
     install_php_session_use_strict_mode: "{{ inv_install_php_session_use_strict_mode }}"
     install_php_disable_functions: "{{ inv_install_php_disable_functions }}"
+    install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
+    install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
     ansible.builtin.include_role:
     name: "labocbz.install_php"
 ```
@@ -407,6 +414,11 @@ Here you can put your change to keep a trace of your work and decisions.
 * Role can handle multiple version, so the possibility to set one as default is available
 * Role create links to binary to use multiple version, as php-8.3 -v for php 8.3
 * Role handle the installation of multiple extension, defaults are basic WordPress / Symfony requirements
+
+### 2023-08-13: Pool supression
+
+* Role can now remove all installed FPM pool
+* So install can be performer, pool imported and cleared if needeed
 
 ## Authors
 

@@ -38,5 +38,7 @@
         install_php_session_auto_start: "{{ inv_install_php_session_auto_start }}"
         install_php_session_use_strict_mode: "{{ inv_install_php_session_use_strict_mode }}"
         install_php_disable_functions: "{{ inv_install_php_disable_functions }}"
+        install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
+        install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
       ansible.builtin.include_role:
         name: "labocbz.install_php"

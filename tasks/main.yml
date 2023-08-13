@@ -104,3 +104,19 @@
         owner: "root"
         group: "root"
         lstrip_blocks: yes
+
+    - name: "Delete all FPM pools"
+      when: install_php_remove_all_fpm_pools | default(false)
+      block: 
+        - name: "Find all files in folder"
+          register: files
+          ansible.builtin.find:
+            paths: "{{ install_php_fpm_pools_path }}"
+
+        - name: "Remove all other confs"
+          loop: "{{ files.files }}"
+          loop_control:
+            loop_var: file
+          ansible.builtin.file:
+            path: "{{ install_php_fpm_pools_path }}/{{ file }}"
+            state: absent

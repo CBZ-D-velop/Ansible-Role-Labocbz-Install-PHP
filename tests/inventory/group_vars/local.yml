@@ -6,6 +6,8 @@ inv_install_php_import_cli_conf: true
 inv_install_php_import_apache_conf: true
 inv_install_php_import_cgi_conf: true
 inv_install_php_import_fpm_conf: true
+inv_install_php_remove_all_fpm_pools: true
+inv_install_php_fpm_pools_path: "/etc/php/{{ inv_install_php_version }}/fpm/pool.d"
 
 inv_install_php_max_input_time: 60
 inv_install_php_output_buffering: 4096
