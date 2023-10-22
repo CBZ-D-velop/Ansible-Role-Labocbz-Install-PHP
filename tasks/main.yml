@@ -1,7 +1,7 @@
 ---
 - name: "Install packages"
   ansible.builtin.package:
-    update_cache: true
+    update_cache: false
     name:
       - "software-properties-common"
       - "ca-certificates"
@@ -26,7 +26,7 @@
 
     - name: "Update apt and install PHP {{ install_php_version }}"
       ansible.builtin.apt:
-        update_cache: true
+        update_cache: false
         name:
           - "php{{ install_php_version }}"
 
@@ -58,7 +58,7 @@
     - name: "Update apt and install PHP {{ install_php_version }} FPM"
       when: install_php_install_fpm | default(false)
       ansible.builtin.apt:
-        update_cache: true
+        update_cache: false
         name:
           - "php{{ install_php_version }}-fpm"
 
