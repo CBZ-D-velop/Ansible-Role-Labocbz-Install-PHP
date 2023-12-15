@@ -2,6 +2,9 @@
 install_php_version: "8.2"
 install_php_version_is_default: true
 install_php_install_fpm: true
+install_php_remove_all_fpm_pools: true
+install_php_fpm_pools_path: "/etc/php/{{ install_php_version }}/fpm/pool.d"
+
 install_php_import_cli_conf: true
 install_php_import_apache_conf: true
 install_php_import_cgi_conf: true
