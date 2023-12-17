@@ -64,4 +64,8 @@ scenario:
     #- "converge"
     #- "idempotence"
     #- "verify"
+<<<<<<< HEAD
     #- "destroy"
+=======
+    - "destroy"
+>>>>>>> e91ca72e045894278f67b49314b4a8923374e6d4
