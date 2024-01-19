@@ -131,6 +131,7 @@ install_php_session_save_handler: "files" # redis
 install_php_session_save_path: "/var/lib/php/sessions" #tcp://127.0.0.1:6379?auth=<PASSWORD>
 install_php_session_auto_start: 0
 install_php_session_use_strict_mode: 0
+install_php_interned_strings_buffer: 64
 
 install_php_extensions:
   - "php{{ install_php_version }}-zip"
@@ -253,6 +254,7 @@ inv_install_php_upload_max_filesize: "4096M"
 inv_install_php_max_file_uploads: 20
 inv_install_php_allow_url_fopen: "Off"
 inv_install_php_allow_url_include: "Off"
+inv_install_php_interned_strings_buffer: 64
 
 inv_install_php_session_save_handler: "redis"
 inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
@@ -398,6 +400,7 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_php_disable_functions: "{{ inv_install_php_disable_functions }}"
     install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
     install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
+    install_php_interned_strings_buffer: "{{ inv_install_php_interned_strings_buffer }}"
     ansible.builtin.include_role:
     name: "labocbz.install_php"
 ```
