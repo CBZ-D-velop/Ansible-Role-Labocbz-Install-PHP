@@ -40,5 +40,6 @@
         install_php_disable_functions: "{{ inv_install_php_disable_functions }}"
         install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
         install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
+        install_php_interned_strings_buffer: "{{ inv_install_php_interned_strings_buffer }}"
       ansible.builtin.include_role:
         name: "labocbz.install_php"
