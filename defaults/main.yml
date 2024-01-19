@@ -29,6 +29,7 @@ install_php_session_save_path: "/var/lib/php/sessions" #tcp://127.0.0.1:6379?aut
 install_php_session_auto_start: 0
 install_php_session_use_strict_mode: 0
 install_php_interned_strings_buffer: 64
+install_php_interned_strings_memory_consumption: 256
 
 install_php_extensions:
   - "php{{ install_php_version }}-zip"
