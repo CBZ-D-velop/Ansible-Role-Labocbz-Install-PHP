@@ -133,6 +133,7 @@ install_php_session_auto_start: 0
 install_php_session_use_strict_mode: 0
 install_php_interned_strings_buffer: 64
 install_php_interned_strings_memory_consumption: 256
+install_php_log_level: "WARNING"
 
 install_php_extensions:
   - "php{{ install_php_version }}-zip"
@@ -236,16 +237,16 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 inv_install_php_version: "8.2"
 inv_install_php_version_is_default: true
 inv_install_php_install_fpm: true
-install_php_remove_all_fpm_pools: true
-inv_install_php_fpm_pools_path: "/etc/php/{{ inv_install_php_version }}/fpm/pool.d"
 inv_install_php_import_cli_conf: true
 inv_install_php_import_apache_conf: true
 inv_install_php_import_cgi_conf: true
 inv_install_php_import_fpm_conf: true
+inv_install_php_remove_all_fpm_pools: true
+inv_install_php_fpm_pools_path: "/etc/php/{{ inv_install_php_version }}/fpm/pool.d"
 
 inv_install_php_max_input_time: 60
 inv_install_php_output_buffering: 4096
-inv_install_php_cgi_fix_pathinfo: 0
+inv_install_php_cgi_fix_pathinfo: 1
 inv_install_php_expose_php: "Off"
 inv_install_php_max_execution_time: 30
 inv_install_php_memory_limit: "4096M"
@@ -255,17 +256,17 @@ inv_install_php_upload_max_filesize: "4096M"
 inv_install_php_max_file_uploads: 20
 inv_install_php_allow_url_fopen: "Off"
 inv_install_php_allow_url_include: "Off"
-inv_install_php_interned_strings_buffer: 64
-inv_install_php_interned_strings_memory_consumption: 256
-
 inv_install_php_session_save_handler: "redis"
 inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
+inv_install_php_interned_strings_buffer: 64
+inv_install_php_interned_strings_memory_consumption: 256
+inv_install_php_log_level: "WARNING"
 
 #inv_install_php_session_save_handler: "redis"
 #inv_install_php_session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret"
 
 #inv_install_php_session_save_handler: "rediscluster"
-#inv_install_php_session_s
+#inv_install_php_session_save_path: "seed[]=tls://ip1:port&seed[]=tls://ip2:port&stream[verify_peer]=0&stream[local_cert]=file:///path/to/cert.pem"
 
 inv_install_php_session_auto_start: 0
 inv_install_php_session_use_strict_mode: 0
@@ -372,9 +373,9 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
 
 ```YAML
 - name: "Include labocbz.install_php"
-    tags:
+  tags:
     - "labocbz.install_php"
-    vars:
+  vars:
     install_php_version: "{{ inv_install_php_version }}"
     install_php_version_is_default: "{{ inv_install_php_version_is_default }}"
     install_php_extensions: "{{ inv_install_php_extensions }}"
@@ -403,8 +404,9 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
     install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
     install_php_interned_strings_buffer: "{{ inv_install_php_interned_strings_buffer }}"
-    install_php_interned_strings_memory_consumption: "{{ inv_install_php_interned_strings_memory_consumption }}
-    ansible.builtin.include_role:
+    install_php_interned_strings_memory_consumption: "{{ inv_install_php_interned_strings_memory_consumption }}"
+    install_php_log_level: "{{ inv_install_php_log_level }}"
+  ansible.builtin.include_role:
     name: "labocbz.install_php"
 ```
 
@@ -433,6 +435,9 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
 
+### 2023-01-24: Log levels
+
+* You can now define your log_level
 ## Authors
 
 * Lord Robin Crombez
