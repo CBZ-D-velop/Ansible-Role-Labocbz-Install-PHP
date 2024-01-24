@@ -25,6 +25,7 @@ inv_install_php_session_save_handler: "redis"
 inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
 inv_install_php_interned_strings_buffer: 64
 inv_install_php_interned_strings_memory_consumption: 256
+inv_install_php_log_level: "WARNING"
 
 #inv_install_php_session_save_handler: "redis"
 #inv_install_php_session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret"
