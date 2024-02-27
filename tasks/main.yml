@@ -8,7 +8,7 @@
       - "lsb-release"
       - "apt-transport-https"
 
-- name: "Install PHP {{ install_php_version }}"
+- name: "Install PHP {{ install_php__version }}"
   notify: "Enable and start php-fpm"
   block:
     - name: "Get lsb_release"
@@ -24,99 +24,99 @@
       ansible.builtin.apt_repository:
         repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
 
-    - name: "Update apt and install PHP {{ install_php_version }}"
+    - name: "Update apt and install PHP {{ install_php__version }}"
       ansible.builtin.apt:
         update_cache: true
         name:
-          - "php{{ install_php_version }}"
+          - "php{{ install_php__version }}"
 
-    - name: "Update apt and install all PHP {{ install_php_version }} extensions selected"
+    - name: "Update apt and install all PHP extensions selected"
       ansible.builtin.apt:
-        name: "{{ install_php_extensions }}"
+        name: "{{ install_php__extensions }}"
 
     - name: "Verify PHP -v, with alternative / default"
       register: php_version_output
       changed_when: php_version_output.rc != 0
       ansible.builtin.command: "php -v"
 
-    - name: "Set PHP {{ install_php_version }} as default version"
-      when: (install_php_version_is_default | default(false)) and "PHP " ~ install_php_version not in php_version_output.stdout
+    - name: "Set PHP as default version"
+      when: (install_php__version_is_default | default(false)) and "PHP " ~ install_php__version not in php_version_output.stdout
       community.general.alternatives:
         name: "php"
-        path: "/usr/bin/php{{ install_php_version }}"
+        path: "/usr/bin/php{{ install_php__version }}"
         priority: 100
 
-    - name: "Add a php-{{ install_php_version }} in /usr/bin and /bin for PHP {{ install_php_version }}"
+    - name: "Add a php-<version> in /usr/bin and /bin for PHP {{ install_php__version }}"
       ansible.builtin.file:
-        src: "/usr/bin/php{{ install_php_version }}"
-        dest: "/bin/php-{{ install_php_version }}"
+        src: "/usr/bin/php{{ install_php__version }}"
+        dest: "/bin/php-{{ install_php__version }}"
         state: link
         owner: "root"
         group: "root"
         mode: "0711"
 
-    - name: "Update apt and install PHP {{ install_php_version }} FPM"
-      when: install_php_install_fpm | default(false)
+    - name: "Update apt and install PHP FPM"
+      when: install_php__install_fpm | default(false)
       ansible.builtin.apt:
         update_cache: true
         name:
-          - "php{{ install_php_version }}-fpm"
+          - "php{{ install_php__version }}-fpm"
 
-- name: "Configure PHP {{ install_php_version }}"
+- name: "Configure PHP {{ install_php__version }}"
   block:
     - name: "Import php.ini for CLI"
-      when: install_php_import_cli_conf | default(false)
+      when: install_php__import_cli_conf | default(false)
       ansible.builtin.template:
         src: "templates/php.ini.j2"
-        dest: "/etc/php/{{ install_php_version }}/cli/php.ini"
+        dest: "/etc/php/{{ install_php__version }}/cli/php.ini"
         mode: "0700"
         owner: "root"
         group: "root"
         lstrip_blocks: yes
 
     - name: "Import php.ini for Apache2"
-      when: install_php_import_apache_conf | default(false)
+      when: install_php__import_apache_conf | default(false)
       ansible.builtin.template:
         src: "templates/php.ini.j2"
-        dest: "/etc/php/{{ install_php_version }}/apache2/php.ini"
+        dest: "/etc/php/{{ install_php__version }}/apache2/php.ini"
         mode: "0700"
         owner: "root"
         group: "root"
         lstrip_blocks: yes
 
     - name: "Import php.ini for Apache2"
-      when: install_php_import_cgi_conf | default(false)
+      when: install_php__import_cgi_conf | default(false)
       ansible.builtin.template:
         src: "templates/php.ini.j2"
-        dest: "/etc/php/{{ install_php_version }}/cgi/php.ini"
+        dest: "/etc/php/{{ install_php__version }}/cgi/php.ini"
         mode: "0700"
         owner: "root"
         group: "root"
         lstrip_blocks: yes
 
     - name: "Import php.ini for FPM"
-      when: (install_php_import_fpm_conf | default(false)) and (install_php_install_fpm | default(false))
+      when: (install_php__import_fpm_conf | default(false)) and (install_php__install_fpm | default(false))
       notify: "Restart php-fpm"
       ansible.builtin.template:
         src: "templates/php.ini.j2"
-        dest: "/etc/php/{{ install_php_version }}/fpm/php.ini"
+        dest: "/etc/php/{{ install_php__version }}/fpm/php.ini"
         mode: "0700"
         owner: "root"
         group: "root"
         lstrip_blocks: yes
 
     - name: "Delete all FPM pools"
-      when: install_php_remove_all_fpm_pools | default(false)
+      when: install_php__remove_all_fpm_pools | default(false)
       block: 
         - name: "Find all files in folder"
           register: files
           ansible.builtin.find:
-            paths: "{{ install_php_fpm_pools_path }}"
+            paths: "{{ install_php__fpm_pools_path }}"
 
         - name: "Remove all other confs"
           loop: "{{ files.files }}"
           loop_control:
             loop_var: file
           ansible.builtin.file:
-            path: "{{ install_php_fpm_pools_path }}/{{ file }}"
+            path: "{{ install_php__fpm_pools_path }}/{{ file }}"
             state: absent

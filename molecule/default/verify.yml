@@ -2,32 +2,32 @@
 # Don't forget to keep this file updated
 # molecule/<scenario>/verify.yml
 - name: "Verify"
-  hosts: "all"
+  hosts: "local"
   gather_facts: false
   tasks:
 
     - name: "Verify PHP -v , with default call"
-      when: inv_install_php_version_is_default | default(false)
+      when: inv_install_php__version_is_default | default(false)
       register: php_version_output
       changed_when: php_version_output.rc != 0
-      failed_when: "'PHP {{ inv_install_php_version }}' not in php_version_output.stdout"
+      failed_when: "'PHP {{ inv_install_php__version }}' not in php_version_output.stdout"
       ansible.builtin.command: "php -v"
 
-    - name: "Verify PHP -v , with custom binaries for PHP {{ inv_install_php_version }}"
+    - name: "Verify PHP -v , with custom binaries for PHP {{ inv_install_php__version }}"
       loop:
-        - "php-{{ inv_install_php_version }}"
-        - "/usr/bin/php{{ inv_install_php_version }}"
-        - "/bin/php-{{ inv_install_php_version }}"
+        - "php-{{ inv_install_php__version }}"
+        - "/usr/bin/php{{ inv_install_php__version }}"
+        - "/bin/php-{{ inv_install_php__version }}"
       loop_control:
         loop_var: php_call
       register: php_version_output
       changed_when: php_version_output.rc != 0
-      failed_when: "'PHP {{ inv_install_php_version }}' not in php_version_output.stdout"
+      failed_when: "'PHP {{ inv_install_php__version }}' not in php_version_output.stdout"
       ansible.builtin.command: "{{ php_call }} -v"
 
     - name: "Get PHP FPM service current state"
-      when: inv_install_php_install_fpm | default(inv_install_php_install_fpm)
+      when: inv_install_php__install_fpm | default(inv_install_php__install_fpm)
       register: fpm_service_status
       failed_when: not fpm_service_status.status.ActiveState == 'active'
       ansible.builtin.systemd:
-        name: "php{{ inv_install_php_version }}-fpm"
+        name: "php{{ inv_install_php__version }}-fpm"

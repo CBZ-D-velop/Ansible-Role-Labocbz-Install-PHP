@@ -1,18 +1,18 @@
 ---
 - name: "Enable and start php-fpm"
-  when: install_php_install_fpm | default(false)
+  when: install_php__install_fpm | default(false)
   register: fpm_service_status
   changed_when: not fpm_service_status.state != "started"
   ansible.builtin.service:
-    name: "php{{ install_php_version }}-fpm"
+    name: "php{{ install_php__version }}-fpm"
     state: "started"
     daemon_reload: true
     enabled: yes
 
 - name: "Restart php-fpm"
-  when: install_php_install_fpm | default(false)
+  when: install_php__install_fpm | default(false)
   register: fpm_service_status
   changed_when: not fpm_service_status.status.ActiveState != "stopped"
   ansible.builtin.service:
-    name: "php{{ install_php_version }}-fpm"
+    name: "php{{ install_php__version }}-fpm"
     state: "restarted"
