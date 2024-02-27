@@ -450,7 +450,7 @@ Here you can put your change to keep a trace of your work and decisions.
 * Added new CI
 * Added SonarQube
 * Tested and validated on Redis
-* Redis doest support mTLS for now ...
+* Redis doest support mTLS for now
 
 ## Authors
 
