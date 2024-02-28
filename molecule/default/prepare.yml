@@ -1,7 +1,7 @@
 ---
 # if you have any prepararion task
 - name: "Prepare"
-  hosts: "all"
+  hosts: "local"
   gather_facts: true
   tasks:
 
@@ -11,17 +11,19 @@
     - name: "Include labocbz.prepare_host"
       tags:
         - "labocbz.prepare_host"
+      vars:
+        prepare_host__system_users: "{{ inv_prepare_host__system_users }}"
       ansible.builtin.include_role:
         name: "labocbz.prepare_host"
 
     - name: "Gather facts from all hosts"
       delegate_to: "{{ item }}"
       delegate_facts: true
-      loop: "{{ groups['all'] }}"
+      loop: "{{ groups['local'] }}"
       ansible.builtin.setup:
 
     - name: "Edit /etc/hosts file to add all hosts"
-      loop: "{{ groups['all'] }}"
+      loop: "{{ groups['local'] }}"
       loop_control:
         loop_var: host
       register: output
@@ -60,39 +62,42 @@
         loop_var: bundle
       when: inv_cert_bundles is defined
       vars:
-        add_certificates_bundle_name: "{{ bundle.name }}"
-        add_certificates_bundle_type: "{{ bundle.type }}"
-        add_certificates_bundle_src: "{{ bundle.src }}"
-        add_certificates_bundle_dest: "{{ bundle.dest }}"
-        #add_certificates_bundle_src_user: "{{ bundle.src_user }}"
-        #add_certificates_bundle_src_password: "{{ bundle.src_password }}"
-        #add_certificates_bundle_dest_user: "{{ bundle.dest_user }}"
-        #add_certificates_bundle_dest_group: "{{ bundle.dest_group }}"
-        #add_certificates_bundle_dest_mode: "{{ bundle.dest_mode }}"
+        add_certificates__bundle_name: "{{ bundle.name }}"
+        add_certificates__bundle_type: "{{ bundle.type }}"
+        add_certificates__bundle_src: "{{ bundle.src }}"
+        add_certificates__bundle_dest: "{{ bundle.dest }}"
+        #add_certificates__bundle_src_user: "{{ bundle.src_user }}"
+        #add_certificates__bundle_src_password: "{{ bundle.src_password }}"
+        add_certificates__bundle_dest_user: "{{ bundle.dest_user }}"
+        add_certificates__bundle_dest_group: "{{ bundle.dest_group }}"
+        add_certificates__bundle_dest_mode: "{{ bundle.dest_mode }}"
       ansible.builtin.include_role:
         name: "labocbz.add_certificates"
 
     - name: "Include labocbz.install_redis"
       tags:
         - "labocbz.install_redis"
-      loop: "{{ inv_redis_ports }}"
-      loop_control:
-        loop_var: port
       vars:
-        redis_bind: "{{ inv_redis_bind }}"
-        redis_port: "{{ port }}"
-        redis_proteced_mode: "{{ inv_redis_proteced_mode }}"
-        redis_loglevel: "{{ inv_redis_loglevel }}"
-        redis_requirepass: "{{ inv_redis_requirepass }}"
-        redis_cluster: "{{ inv_redis_cluster }}"
-        redis_path: "{{ inv_redis_path }}"
-        redis_conf: "{{ inv_redis_conf }}"
-        redis_ssl: "{{ inv_redis_ssl }}"
-        redis_ssl_domain: "{{ inv_redis_ssl_domain }}"
-        redis_ssl_path: "{{ inv_redis_ssl_path }}"
-        redis_ssl_key: "{{ inv_redis_ssl_key }}"
-        redis_ssl_cert: "{{ inv_redis_ssl_cert }}"
-        redis_ssl_ca: "{{ inv_redis_ssl_ca }}"
-        redis_ssl_auth_client: "{{ inv_redis_ssl_auth_client }}"
+        install_redis__user: "{{ inv_install_redis__user }}"
+        install_redis__group: "{{ inv_install_redis__group }}"
+        install_redis__bind: "{{ inv_install_redis__bind }}"
+        install_redis__port: "{{ inv_install_redis__port }}"
+        install_redis__proteced_mode: "{{ inv_install_redis__proteced_mode }}"
+        install_redis__loglevel: "{{ inv_install_redis__loglevel }}"
+        install_redis__requirepass: "{{ inv_install_redis__requirepass }}"
+        install_redis__cluster: "{{ inv_install_redis__cluster }}"
+        install_redis__cluster_port: "{{ inv_install_redis__cluster_port }}"
+        install_redis__initial_master: "{{ inv_install_redis__initial_master }}"
+        install_redis__initial_mastername: "{{ inv_install_redis__initial_mastername }}"
+        install_redis__sentinel_port: "{{ inv_install_redis__sentinel_port }}"
+        install_redis__log_path: "{{ inv_install_redis__log_path }}"
+        install_redis__logfile: "{{ inv_install_redis__logfile }}"
+        install_redis__ssl: "{{ inv_install_redis__ssl }}"
+        install_redis__ssl_domain: "{{ inv_install_redis__ssl_domain }}"
+        install_redis__ssl_path: "{{ inv_install_redis__ssl_path }}"
+        install_redis__ssl_key: "{{ inv_install_redis__ssl_key }}"
+        install_redis__ssl_cert: "{{ inv_install_redis__ssl_cert }}"
+        install_redis__ssl_client_auth: "{{ inv_install_redis__ssl_client_auth }}"
+        install_redis__ssl_ca: "{{ inv_install_redis__ssl_ca }}"
       ansible.builtin.include_role:
         name: "labocbz.install_redis"

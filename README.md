@@ -102,66 +102,66 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-install_php_version: "8.2"
-install_php_version_is_default: true
-install_php_install_fpm: true
-install_php_remove_all_fpm_pools: true
-install_php_fpm_pools_path: "/etc/php/{{ install_php_version }}/fpm/pool.d"
+install_php__version: "8.2"
+install_php__version_is_default: true
+install_php__install_fpm: true
+install_php__remove_all_fpm_pools: true
+install_php__fpm_pools_path: "/etc/php/{{ install_php__version }}/fpm/pool.d"
 
-install_php_import_cli_conf: true
-install_php_import_apache_conf: true
-install_php_import_cgi_conf: true
-install_php_import_fpm_conf: true
+install_php__import_cli_conf: true
+install_php__import_apache_conf: true
+install_php__import_cgi_conf: true
+install_php__import_fpm_conf: true
 
-install_php_max_input_time: 60
-install_php_output_buffering: 4096
-install_php_cgi_fix_pathinfo: 1
-install_php_expose_php: "Off"
-install_php_max_execution_time: 30
-install_php_memory_limit: "512M"
-install_php_post_max_size: "512M"
-install_php_file_uploads: "On"
-install_php_upload_max_filesize: "1024M"
-install_php_max_file_uploads: 20
-install_php_allow_url_fopen: "Off"
-install_php_allow_url_include: "Off"
-install_php_smtp: "localhost"
-install_php_smtp_port: 25
-install_php_session_save_handler: "files" # redis
-install_php_session_save_path: "/var/lib/php/sessions" #tcp://127.0.0.1:6379?auth=<PASSWORD>
-install_php_session_auto_start: 0
-install_php_session_use_strict_mode: 0
-install_php_interned_strings_buffer: 64
-install_php_interned_strings_memory_consumption: 256
-install_php_log_level: "WARNING"
+install_php__max_input_time: 60
+install_php__output_buffering: 4096
+install_php__cgi_fix_pathinfo: 1
+install_php__expose_php: "Off"
+install_php__max_execution_time: 30
+install_php__memory_limit: "512M"
+install_php__post_max_size: "512M"
+install_php__file_uploads: "On"
+install_php__upload_max_filesize: "1024M"
+install_php__max_file_uploads: 20
+install_php__allow_url_fopen: "Off"
+install_php__allow_url_include: "Off"
+install_php__smtp: "localhost"
+install_php__smtp_port: 25
+install_php__session_save_handler: "files" # redis
+install_php__session_save_path: "/var/lib/php/sessions" #tcp://127.0.0.1:6379?auth=<PASSWORD>
+install_php__session_auto_start: 0
+install_php__session_use_strict_mode: 0
+install_php__interned_strings_buffer: 64
+install_php__interned_strings_memory_consumption: 256
+install_php__log_level: "WARNING"
 
-install_php_extensions:
-  - "php{{ install_php_version }}-zip"
-  - "php{{ install_php_version }}-fpm"
-  - "php{{ install_php_version }}-cli"
-  - "php{{ install_php_version }}-mysql"
-  - "php{{ install_php_version }}-gd"
-  - "php{{ install_php_version }}-imagick"
-  - "php{{ install_php_version }}-tidy"
-  - "php{{ install_php_version }}-xmlrpc" 
-  - "php{{ install_php_version }}-xml"
-  - "php{{ install_php_version }}-redis"
-  - "php{{ install_php_version }}-curl"
-  - "php{{ install_php_version }}-dom"
-  - "php{{ install_php_version }}-exif"
-  - "php{{ install_php_version }}-fileinfo"
-  - "php{{ install_php_version }}-cgi"
-  - "php{{ install_php_version }}-mbstring"
-  - "php{{ install_php_version }}-mysqli"
-  - "php{{ install_php_version }}-bcmath"
-  - "php{{ install_php_version }}-iconv"
-  - "php{{ install_php_version }}-simplexml"
-  - "php{{ install_php_version }}-xmlreader"
-  - "php{{ install_php_version }}-ssh2"
-  - "php{{ install_php_version }}-ftp"
-  - "php{{ install_php_version }}-sockets"
+install_php__extensions:
+  - "php{{ install_php__version }}-zip"
+  - "php{{ install_php__version }}-fpm"
+  - "php{{ install_php__version }}-cli"
+  - "php{{ install_php__version }}-mysql"
+  - "php{{ install_php__version }}-gd"
+  - "php{{ install_php__version }}-imagick"
+  - "php{{ install_php__version }}-tidy"
+  - "php{{ install_php__version }}-xmlrpc" 
+  - "php{{ install_php__version }}-xml"
+  - "php{{ install_php__version }}-redis"
+  - "php{{ install_php__version }}-curl"
+  - "php{{ install_php__version }}-dom"
+  - "php{{ install_php__version }}-exif"
+  - "php{{ install_php__version }}-fileinfo"
+  - "php{{ install_php__version }}-cgi"
+  - "php{{ install_php__version }}-mbstring"
+  - "php{{ install_php__version }}-mysqli"
+  - "php{{ install_php__version }}-bcmath"
+  - "php{{ install_php__version }}-iconv"
+  - "php{{ install_php__version }}-simplexml"
+  - "php{{ install_php__version }}-xmlreader"
+  - "php{{ install_php__version }}-ssh2"
+  - "php{{ install_php__version }}-ftp"
+  - "php{{ install_php__version }}-sockets"
 
-install_php_disable_functions:
+install_php__disable_functions:
   - "phpinfo"
   - "system"
   - "exec"
@@ -234,70 +234,76 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_install_php_version: "8.2"
-inv_install_php_version_is_default: true
-inv_install_php_install_fpm: true
-inv_install_php_import_cli_conf: true
-inv_install_php_import_apache_conf: true
-inv_install_php_import_cgi_conf: true
-inv_install_php_import_fpm_conf: true
-inv_install_php_remove_all_fpm_pools: true
-inv_install_php_fpm_pools_path: "/etc/php/{{ inv_install_php_version }}/fpm/pool.d"
+inv_prepare_host__system_users:
+  - login: "redis"
+    group: "redis"
 
-inv_install_php_max_input_time: 60
-inv_install_php_output_buffering: 4096
-inv_install_php_cgi_fix_pathinfo: 1
-inv_install_php_expose_php: "Off"
-inv_install_php_max_execution_time: 30
-inv_install_php_memory_limit: "4096M"
-inv_install_php_post_max_size: "4096M"
-inv_install_php_file_uploads: "On"
-inv_install_php_upload_max_filesize: "4096M"
-inv_install_php_max_file_uploads: 20
-inv_install_php_allow_url_fopen: "Off"
-inv_install_php_allow_url_include: "Off"
-inv_install_php_session_save_handler: "redis"
-inv_install_php_session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
-inv_install_php_interned_strings_buffer: 64
-inv_install_php_interned_strings_memory_consumption: 256
-inv_install_php_log_level: "WARNING"
+inv_install_php__version: "8.2"
+inv_install_php__version_is_default: true
+inv_install_php__install_fpm: true
+inv_install_php__import_cli_conf: true
+inv_install_php__import_apache_conf: true
+inv_install_php__import_cgi_conf: true
+inv_install_php__import_fpm_conf: true
+inv_install_php__remove_all_fpm_pools: true
+inv_install_php__fpm_pools_path: "/etc/php/{{ inv_install_php__version }}/fpm/pool.d"
 
-#inv_install_php_session_save_handler: "redis"
-#inv_install_php_session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret"
+inv_install_php__max_input_time: 60
+inv_install_php__output_buffering: 4096
+inv_install_php__cgi_fix_pathinfo: 1
+inv_install_php__expose_php: "Off"
+inv_install_php__max_execution_time: 30
+inv_install_php__memory_limit: "4096M"
+inv_install_php__post_max_size: "4096M"
+inv_install_php__file_uploads: "On"
+inv_install_php__upload_max_filesize: "4096M"
+inv_install_php__max_file_uploads: 20
+inv_install_php__allow_url_fopen: "Off"
+inv_install_php__allow_url_include: "Off"
+inv_install_php__session_save_handler: "redis"
+inv_install_php__session_save_path: "tcp://{{ inventory_hostname }}:6379?auth=mySecret"
+inv_install_php__interned_strings_buffer: 64
+inv_install_php__interned_strings_memory_consumption: 256
+inv_install_php__log_level: "WARNING"
 
-#inv_install_php_session_save_handler: "rediscluster"
-#inv_install_php_session_save_path: "seed[]=tls://ip1:port&seed[]=tls://ip2:port&stream[verify_peer]=0&stream[local_cert]=file:///path/to/cert.pem"
+#inv_install_php__session_save_handler: "redis"
+#inv_install_php__session_save_path: "tls://{{ inventory_hostname }}:6379?auth=mySecret&stream[verify_peer]=1&stream[cafile]=file:///etc/php/ssl/my-redis-cluster.domain.tld/ca-chain.pem.crt&stream[local_cert]=file:///etc/php/ssl/my-redis-cluster.domain.tld/my-redis-cluster.domain.tld.pem.crt&stream[local_cert]=file:///etc/php/ssl/my-redis-cluster.domain.tld/my-redis-cluster.domain.tld.pem.crt&stream[local_pk]=file:///etc/php/ssl/my-redis-cluster.domain.tld/my-redis-cluster.domain.tld.pem.key"
 
-inv_install_php_session_auto_start: 0
-inv_install_php_session_use_strict_mode: 0
+#inv_install_php__session_save_handler: "rediscluster"
+#inv_install_php__session_save_path: "seed[]=tls://ip1:port&seed[]=tls://ip2:port&stream[verify_peer]=0&stream[local_cert]=file:///path/to/cert.pem"
 
-inv_install_php_extensions:
-  - "php{{ install_php_version }}-zip"
-  - "php{{ install_php_version }}-fpm"
-  - "php{{ install_php_version }}-cli"
-  - "php{{ install_php_version }}-mysql"
-  - "php{{ install_php_version }}-gd"
-  - "php{{ install_php_version }}-imagick"
-  - "php{{ install_php_version }}-tidy"
-  - "php{{ install_php_version }}-xmlrpc" 
-  - "php{{ install_php_version }}-xml"
-  - "php{{ install_php_version }}-redis"
-  - "php{{ install_php_version }}-curl"
-  - "php{{ install_php_version }}-dom"
-  - "php{{ install_php_version }}-exif"
-  - "php{{ install_php_version }}-fileinfo"
-  - "php{{ install_php_version }}-cgi"
-  - "php{{ install_php_version }}-mbstring"
-  - "php{{ install_php_version }}-mysqli"
-  - "php{{ install_php_version }}-bcmath"
-  - "php{{ install_php_version }}-iconv"
-  - "php{{ install_php_version }}-simplexml"
-  - "php{{ install_php_version }}-xmlreader"
-  - "php{{ install_php_version }}-ssh2"
-  - "php{{ install_php_version }}-ftp"
-  - "php{{ install_php_version }}-sockets"
+#session.save_path = "tls://ip1:port&seed[]=tls://ip2:port&stream[verify_peer]=0&stream[local_cert]=file:///path/to/cert.pem"
 
-inv_install_php_disable_functions:
+inv_install_php__session_auto_start: 0
+inv_install_php__session_use_strict_mode: 0
+
+inv_install_php__extensions:
+  - "php{{ install_php__version }}-zip"
+  - "php{{ install_php__version }}-fpm"
+  - "php{{ install_php__version }}-cli"
+  - "php{{ install_php__version }}-mysql"
+  - "php{{ install_php__version }}-gd"
+  - "php{{ install_php__version }}-imagick"
+  - "php{{ install_php__version }}-tidy"
+  - "php{{ install_php__version }}-xmlrpc" 
+  - "php{{ install_php__version }}-xml"
+  - "php{{ install_php__version }}-redis"
+  - "php{{ install_php__version }}-curl"
+  - "php{{ install_php__version }}-dom"
+  - "php{{ install_php__version }}-exif"
+  - "php{{ install_php__version }}-fileinfo"
+  - "php{{ install_php__version }}-cgi"
+  - "php{{ install_php__version }}-mbstring"
+  - "php{{ install_php__version }}-mysqli"
+  - "php{{ install_php__version }}-bcmath"
+  - "php{{ install_php__version }}-iconv"
+  - "php{{ install_php__version }}-simplexml"
+  - "php{{ install_php__version }}-xmlreader"
+  - "php{{ install_php__version }}-ssh2"
+  - "php{{ install_php__version }}-ftp"
+  - "php{{ install_php__version }}-sockets"
+
+inv_install_php__disable_functions:
   #- "phpinfo"
   - "system"
   - "exec"
@@ -376,36 +382,36 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.install_php"
   vars:
-    install_php_version: "{{ inv_install_php_version }}"
-    install_php_version_is_default: "{{ inv_install_php_version_is_default }}"
-    install_php_extensions: "{{ inv_install_php_extensions }}"
-    install_php_install_fpm: "{{ inv_install_php_install_fpm }}"
-    install_php_import_cli_conf: "{{ inv_install_php_import_cli_conf }}"
-    install_php_import_apache_conf: "{{ inv_install_php_import_apache_conf }}"
-    install_php_import_cgi_conf: "{{ inv_install_php_import_cgi_conf }}"
-    install_php_import_fpm_conf: "{{ inv_install_php_import_fpm_conf }}"
-    install_php_max_input_time: "{{ inv_install_php_max_input_time }}"
-    install_php_output_buffering: "{{ inv_install_php_output_buffering }}"
-    install_php_cgi_fix_pathinfo: "{{ inv_install_php_cgi_fix_pathinfo }}"
-    install_php_expose_php: "{{ inv_install_php_expose_php }}"
-    install_php_max_execution_time: "{{ inv_install_php_max_execution_time }}"
-    install_php_memory_limit: "{{ inv_install_php_memory_limit }}"
-    install_php_post_max_size: "{{ inv_install_php_post_max_size }}"
-    install_php_file_uploads: "{{ inv_install_php_file_uploads }}"
-    install_php_upload_max_filesize: "{{ inv_install_php_upload_max_filesize }}"
-    install_php_max_file_uploads: "{{ inv_install_php_max_file_uploads }}"
-    install_php_allow_url_fopen: "{{ inv_install_php_allow_url_fopen }}"
-    install_php_allow_url_include: "{{ inv_install_php_allow_url_include }}"
-    install_php_session_save_handler: "{{ inv_install_php_session_save_handler }}"
-    install_php_session_save_path: "{{ inv_install_php_session_save_path }}"
-    install_php_session_auto_start: "{{ inv_install_php_session_auto_start }}"
-    install_php_session_use_strict_mode: "{{ inv_install_php_session_use_strict_mode }}"
-    install_php_disable_functions: "{{ inv_install_php_disable_functions }}"
-    install_php_remove_all_fpm_pools: "{{ inv_install_php_remove_all_fpm_pools }}"
-    install_php_fpm_pools_path: "{{ inv_install_php_fpm_pools_path }}"
-    install_php_interned_strings_buffer: "{{ inv_install_php_interned_strings_buffer }}"
-    install_php_interned_strings_memory_consumption: "{{ inv_install_php_interned_strings_memory_consumption }}"
-    install_php_log_level: "{{ inv_install_php_log_level }}"
+    install_php__version: "{{ inv_install_php__version }}"
+    install_php__version_is_default: "{{ inv_install_php__version_is_default }}"
+    install_php__extensions: "{{ inv_install_php__extensions }}"
+    install_php__install_fpm: "{{ inv_install_php__install_fpm }}"
+    install_php__import_cli_conf: "{{ inv_install_php__import_cli_conf }}"
+    install_php__import_apache_conf: "{{ inv_install_php__import_apache_conf }}"
+    install_php__import_cgi_conf: "{{ inv_install_php__import_cgi_conf }}"
+    install_php__import_fpm_conf: "{{ inv_install_php__import_fpm_conf }}"
+    install_php__max_input_time: "{{ inv_install_php__max_input_time }}"
+    install_php__output_buffering: "{{ inv_install_php__output_buffering }}"
+    install_php__cgi_fix_pathinfo: "{{ inv_install_php__cgi_fix_pathinfo }}"
+    install_php__expose_php: "{{ inv_install_php__expose_php }}"
+    install_php__max_execution_time: "{{ inv_install_php__max_execution_time }}"
+    install_php__memory_limit: "{{ inv_install_php__memory_limit }}"
+    install_php__post_max_size: "{{ inv_install_php__post_max_size }}"
+    install_php__file_uploads: "{{ inv_install_php__file_uploads }}"
+    install_php__upload_max_filesize: "{{ inv_install_php__upload_max_filesize }}"
+    install_php__max_file_uploads: "{{ inv_install_php__max_file_uploads }}"
+    install_php__allow_url_fopen: "{{ inv_install_php__allow_url_fopen }}"
+    install_php__allow_url_include: "{{ inv_install_php__allow_url_include }}"
+    install_php__session_save_handler: "{{ inv_install_php__session_save_handler }}"
+    install_php__session_save_path: "{{ inv_install_php__session_save_path }}"
+    install_php__session_auto_start: "{{ inv_install_php__session_auto_start }}"
+    install_php__session_use_strict_mode: "{{ inv_install_php__session_use_strict_mode }}"
+    install_php__disable_functions: "{{ inv_install_php__disable_functions }}"
+    install_php__remove_all_fpm_pools: "{{ inv_install_php__remove_all_fpm_pools }}"
+    install_php__fpm_pools_path: "{{ inv_install_php__fpm_pools_path }}"
+    install_php__interned_strings_buffer: "{{ inv_install_php__interned_strings_buffer }}"
+    install_php__interned_strings_memory_consumption: "{{ inv_install_php__interned_strings_memory_consumption }}"
+    install_php__log_level: "{{ inv_install_php__log_level }}"
   ansible.builtin.include_role:
     name: "labocbz.install_php"
 ```
@@ -438,6 +444,14 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-01-24: Log levels
 
 * You can now define your log_level
+
+### 2024-02-27: Fixes and CI
+
+* Added new CI
+* Added SonarQube
+* Tested and validated on Redis
+* Redis doest support mTLS for now
+
 ## Authors
 
 * Lord Robin Crombez

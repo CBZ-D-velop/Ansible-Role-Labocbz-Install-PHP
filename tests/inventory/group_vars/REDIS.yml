@@ -1,0 +1,26 @@
+---
+inv_install_redis__user: "redis"
+inv_install_redis__group: "redis"
+
+inv_install_redis__bind: "127.0.0.1 {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+inv_install_redis__port: 6379
+
+inv_install_redis__proteced_mode: "no"
+inv_install_redis__loglevel: "notice"
+inv_install_redis__requirepass: "mySecret"
+
+inv_install_redis__cluster: false
+#inv_install_redis__initial_master: "srv1.domain.tld"
+inv_install_redis__initial_mastername: "mymaster"
+inv_install_redis__sentinel_port: 5000
+
+inv_install_redis__log_path: "/var/log/redis"
+inv_install_redis__logfile: "{{ inv_install_redis__log_path }}/redis.log"
+
+inv_install_redis__ssl: false
+inv_install_redis__ssl_domain: "my-redis-cluster.domain.tld"
+inv_install_redis__ssl_path: "/etc/redis/ssl"
+inv_install_redis__ssl_key: "{{ inv_install_redis__ssl_path }}/{{ inv_install_redis__ssl_domain }}/{{ inv_install_redis__ssl_domain }}.pem.key"
+inv_install_redis__ssl_cert: "{{ inv_install_redis__ssl_path }}/{{ inv_install_redis__ssl_domain }}/{{ inv_install_redis__ssl_domain }}.pem.crt"
+inv_install_redis__ssl_client_auth: false
+inv_install_redis__ssl_ca: "{{ inv_install_redis__ssl_path }}/{{ inv_install_redis__ssl_domain }}/ca-chain.pem.crt"
