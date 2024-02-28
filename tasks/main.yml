@@ -12,7 +12,7 @@
   notify: "Enable and start php-fpm"
   block:
     - name: "Add PHP repository"
-      when:  when: ansible_distribution != "Ubuntu"
+      when: ansible_distribution != "Ubuntu"
       block:
         - name: "Get lsb_release"
           register: lsb_result
