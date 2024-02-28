@@ -28,7 +28,7 @@
             repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
 
     - name: "Add SURY Repository on Ubuntu"
-      when: ansible_distribution == "Debian"
+      when: ansible_distribution == "Ubuntu"
       ansible.builtin.apt_repository:
         repo: "ppa:ondrej/php"
 
