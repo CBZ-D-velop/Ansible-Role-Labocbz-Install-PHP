@@ -11,18 +11,21 @@
 - name: "Install PHP {{ install_php__version }}"
   notify: "Enable and start php-fpm"
   block:
-    - name: "Get lsb_release"
-      register: lsb_result
-      changed_when: lsb_result.rc != 0
-      ansible.builtin.command: "lsb_release -sc"
+    - name: "Add PHP repository"
+      when:  when: ansible_distribution != "Ubuntu"
+      block:
+        - name: "Get lsb_release"
+          register: lsb_result
+          changed_when: lsb_result.rc != 0
+          ansible.builtin.command: "lsb_release -sc"
 
-    - name: "Add SURY GPG apt Key"
-      ansible.builtin.apt_key:
-        url: "https://packages.sury.org/php/apt.gpg"
+        - name: "Add SURY GPG apt Key"
+          ansible.builtin.apt_key:
+            url: "https://packages.sury.org/php/apt.gpg"
 
-    - name: "Add SURY Repository"
-      ansible.builtin.apt_repository:
-        repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
+        - name: "Add SURY Repository"
+          ansible.builtin.apt_repository:
+            repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
 
     - name: "Update apt and install PHP {{ install_php__version }}"
       ansible.builtin.apt:
