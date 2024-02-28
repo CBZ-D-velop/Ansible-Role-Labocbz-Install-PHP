@@ -11,8 +11,8 @@
 - name: "Install PHP {{ install_php__version }}"
   notify: "Enable and start php-fpm"
   block:
-    - name: "Add PHP repository"
-      when: ansible_distribution != "Ubuntu"
+    - name: "Add PHP repository on Debian"
+      when: ansible_distribution == "Debian"
       block:
         - name: "Get lsb_release"
           register: lsb_result
@@ -26,6 +26,11 @@
         - name: "Add SURY Repository"
           ansible.builtin.apt_repository:
             repo: "deb https://packages.sury.org/php/ {{ lsb_result.stdout }} main"
+
+    - name: "Add SURY Repository on Ubuntu"
+      when: ansible_distribution == "Debian"
+      ansible.builtin.apt_repository:
+        repo: "ppa:ondrej/php"
 
     - name: "Update apt and install PHP {{ install_php__version }}"
       ansible.builtin.apt:
